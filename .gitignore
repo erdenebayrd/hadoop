@@ -1,9 +1,9 @@
-# spark-logs/*
+spark-logs/*
 poetry.lock
 .venv
 opynb_checkpoints
 logs
-# spark-logs
+spark-logs
 spark-events
 __pycache__
 .ipynb_checkpoints
