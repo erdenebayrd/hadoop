@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<configuration>
+    <property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>resourcemanager</value>
+        <description>The hostname of the ResourceManager.</description>
+    </property>
+    <property>
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+        <description>Tells the NodeManager which auxiliary services to use.</description>
+    </property>
+    <property>
+        <name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
+        <value>org.apache.hadoop.mapred.ShuffleHandler</value>
+        <description>The class that handles shuffle requests from MapReduce tasks.</description>
+    </property>
+</configuration>

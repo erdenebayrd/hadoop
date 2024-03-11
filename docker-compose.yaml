@@ -1,0 +1,52 @@
+version: "3.8"
+
+x-logging: &default-logging
+  options:
+    max-size: "1024m"
+    max-file: "3"
+  driver: json-file
+
+x-common: &common
+  build:
+    context: .
+    dockerfile: ./hadoop.dockerfile
+  logging: *default-logging
+  environment: &common-env
+    PYTHONUNBUFFERED: 1
+  env_file:
+    - .env
+
+services:
+  resourcemanager: # YARN (Yet Another Resource Negotiator) manages the use of resources across the cluster.
+    <<: *common
+    environment:
+      <<: *common-env
+    container_name: resourcemanager
+    hostname: resourcemanager
+    ports:
+      - "8088:8088" # YARN ResourceManager Web UI
+    command: sh -c "/usr/local/hadoop/bin/yarn resourcemanager"
+
+  nodemanager1: # monitoring (cpu, ram, dist, network) and reporting the same to the ResourceManager
+    <<: *common
+    environment:
+      <<: *common-env
+    container_name: nodemanager1
+    hostname: nodemanager1
+    command: sh -c "/usr/local/hadoop/bin/yarn nodemanager"
+
+  historyserver: # spark
+    <<: *common
+    environment:
+      <<: *common-env
+    container_name: historyserver
+    hostname: historyserver
+    volumes:
+      - ./spark-logs:/usr/local/spark/logs:rw
+    ports:
+      - "18080:18080" # Spark History Server Web UI
+    command: sh -c "/usr/local/spark/sbin/start-history-server.sh && tail -f /usr/local/spark/logs/*"
+
+volumes:
+  namenode:
+  datanode:
