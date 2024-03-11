@@ -50,8 +50,9 @@ RUN MACHINE_TYPE=`uname -m` && \
         # echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-arm64" >> /root/.bashrc; \
     fi
 
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-arm64
-# ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+# ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-arm64
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+
 ENV PATH $PATH:$JAVA_HOME/bin
 
 
@@ -69,7 +70,10 @@ RUN mkdir -p /hadoop/hdfs/datanode
 
 # Expose ports for Hadoop services (Namenode, Datanode, ResourceManager, NodeManager, etc.)
 # and Spark services (Master, Worker, HistoryServer, etc.)
-EXPOSE 8088 9870 9864 8042 8080 18080
+
+EXPOSE 8088 9870 9864 8042 18080
+# EXPOSE 8088 9870 9864 8042 8080 18080
+
 
 RUN mkdir -p /tmp/spark-events
 
