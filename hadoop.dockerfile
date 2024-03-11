@@ -71,8 +71,7 @@ RUN mkdir -p /hadoop/hdfs/datanode
 # Expose ports for Hadoop services (Namenode, Datanode, ResourceManager, NodeManager, etc.)
 # and Spark services (Master, Worker, HistoryServer, etc.)
 
-EXPOSE 8088 9870 9864 8042 18080
-# EXPOSE 8088 9870 9864 8042 8080 18080
+EXPOSE 8088 9870 9864 8042 8080 18080
 
 
 RUN mkdir -p /tmp/spark-events
